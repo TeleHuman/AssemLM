@@ -11,8 +11,8 @@
 <sup>\*</sup> Equal advising | <sup>†</sup> Equally leading organizations
 
 <p align="center">
-  <a href=""><img src="https://img.shields.io/badge/Paper-Coming%20Soon-red" alt="Paper"></a>
-  <a href=""><img src="https://img.shields.io/badge/arXiv-Coming%20Soon-b31b1b" alt="arXiv"></a>
+  <a href="https://arxiv.org/pdf/2604.08983"><img src="https://img.shields.io/badge/Paper-PDF-red" alt="Paper"></a>
+  <a href="https://arxiv.org/abs/2604.08983"><img src="https://img.shields.io/badge/arXiv-2604.08983-b31b1b" alt="arXiv"></a>
   <a href=""><img src="https://img.shields.io/badge/Model-Coming%20Soon-blue" alt="Model"></a>
   <a href="https://assemlmhome.github.io/"><img src="https://img.shields.io/badge/Project%20Page-Home-green" alt="Project Page"></a>
   <a href="https://github.com/TeleHuman/AssemLM"><img src="https://img.shields.io/badge/Code-GitHub-black" alt="Code"></a>
@@ -22,5 +22,6 @@
 
 ## 🚀 News
 
+- **[2026-04-10]** 📄 Upload the paper to arXiv: [paper](https://arxiv.org/abs/2604.08983)
 - **[2026-03-15]** 🎉 Release the first version of the [project page](https://assemlmhome.github.io/).
 - **[2026-03-05]** 🏗️ Create the [project page](https://assemlmhome.github.io/) and [code repository](https://github.com/TeleHuman/AssemLM).
