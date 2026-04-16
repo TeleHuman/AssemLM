@@ -25,3 +25,12 @@
 - **[2026-04-10]** 📄 Upload the paper to arXiv: [paper](https://arxiv.org/abs/2604.08983)
 - **[2026-03-15]** 🎉 Release the first version of the [project page](https://assemlmhome.github.io/).
 - **[2026-03-05]** 🏗️ Create the [project page](https://assemlmhome.github.io/) and [code repository](https://github.com/TeleHuman/AssemLM).
+
+## 🗺️ Open-Source Roadmap
+
+- **[Coming within 1 week]** 🔓 Release **AssemLM-v1 inference weights**, **inference code**, and a **sample dataset**.
+- **[Planned]** 📦 Release the **majority of the AssemBench dataset**.
+- **[Planned]** 📚 Release **additional datasets and benchmark resources**.
+- **[Planned]** 🧠 Release the **training code**.
+- **[Planned]** ⚙️ Release the **data processing pipeline**.
+- **[Planned]** 🚀 Release **updated and improved model weights**.
