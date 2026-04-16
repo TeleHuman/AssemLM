@@ -22,6 +22,8 @@
 
 ## 🚀 News
 
+- **[2026-04-16]** 🗺️ Announce the open-source roadmap, including plans for releasing inference weights, code, datasets, and future improved versions.
+
 - **[2026-04-10]** 📄 Upload the paper to arXiv: [paper](https://arxiv.org/abs/2604.08983)
 - **[2026-03-15]** 🎉 Release the first version of the [project page](https://assemlmhome.github.io/).
 - **[2026-03-05]** 🏗️ Create the [project page](https://assemlmhome.github.io/) and [code repository](https://github.com/TeleHuman/AssemLM).
