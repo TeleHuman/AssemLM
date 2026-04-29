@@ -1,1 +1,12 @@
 local*/
+*.egg-info/
+ckpts/
+tmp/
+*local/
+datasets/
+*tmp/
+__pyacache__/
+*.pyc
+*_tmp_*/
+*tmp */
+models/

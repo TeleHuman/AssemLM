@@ -1,0 +1,31 @@
+# Auto-generated from an existing environment.
+# Edit this file to fit your actual packaging/repro needs.
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assemlm"
+version = "1.0.0"
+description = "Spatial reasoning multimodal large language models for robotic assembly."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch==2.5.1",
+    "torchvision==0.20.1",
+    "flask",
+    "omegaconf==2.3.0",
+    "rich==13.9.4",
+    "tqdm==4.67.3",
+    "numpy==2.2.6",
+    "pillow==12.1.1",
+    "transformers==4.57.0",
+    "accelerate==1.3.0",
+    "trimesh==4.10.0",
+    "h5py==3.15.1",
+    "matplotlib==3.10.8",
+]
+
+[tool.setuptools]
+packages = ["assemlm"]

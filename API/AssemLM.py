@@ -20,7 +20,8 @@ this_file = Path(__file__).resolve()
 
 # Directory containing this file
 this_dir = this_file.parent # /teamspace/jz/project/AssemLM/API
-UPLOAD_FOLDER = os.path.join(this_dir, 'tmp')
+root_dir = this_dir.parent # /teamspace/jz/project/AssemLM
+UPLOAD_FOLDER = os.path.join(root_dir, 'tmp')
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -46,7 +47,7 @@ def query():
     payload = request.get_json(silent=True)
     print("Received query:", payload)
 
-    results_root = this_dir / "results_tmp"
+    results_root = root_dir / "results_tmp"
     results_root.mkdir(parents=True, exist_ok=True)
 
     records = payload.get("records", []) if isinstance(payload, dict) else []
@@ -89,13 +90,20 @@ def query():
             instructions.append(instruction) # 4
         
         batch = assemlm_model.assemlm_interface.build_assemlm_inputs(images=batch_imgs,point_clouds=batch_point_clouds, instructions=instructions)
-        
 
         generated_poses = assemlm_model.generate(batch)
         valid_mask = (generated_poses[:, 0] != -100.0) & (generated_poses != 0).any(dim=-1)
         pred_t = generated_poses[:, :3].view(-1, 3, 1)
         pred_rot_6d = generated_poses[:, 3:9]
+
         pred_R = bgs(pred_rot_6d.reshape(-1, 2, 3).permute(0, 2, 1))
+
+        for i, record in enumerate(batch_records):
+            state = record.get("state", "none")
+            if state == "up" and pred_R[i, 2, 2] < 0:
+                pred_R[i, :, 1:] = -pred_R[i, :, 1:]
+            elif state == "down" and pred_R[i, 2, 2] > 0:
+                pred_R[i, :, 1:] = -pred_R[i, :, 1:]
 
         for i in range(len(batch_moving_point_clouds)):
             p_R, p_t = pred_R[i], pred_t[i]
@@ -105,7 +113,7 @@ def query():
             sample_name = batch_records[i].get("asset_name", f"sample_{batch_index}_{i}")
             sample_dir = results_root / f"batch_{batch_index:04d}" / sample_name.replace("/", "_")
             sample_dir.mkdir(parents=True, exist_ok=True)
-
+            
             save_multi_part_pointcloud_png(
                 [p_pc_a, pc_b], 
                 str(sample_dir), 
