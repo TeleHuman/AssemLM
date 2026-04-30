@@ -80,6 +80,22 @@ conda activate assemlm
 bash scripts/query_assemlm.sh
 ```
 
+After running, two folders will be created in the root directory:
+
+- `datasets_tmp`: contains the input data for the current request.
+- `results_tmp`: contains the prediction results and visualization outputs.
+
+<p align="center">
+  <img src="assets/manual1.png" width="24%">
+  <img src="assets/manual2.png" width="24%">
+  <img src="assets/input_pc.png" width="24%">
+  <img src="assets/pre_pc.png" width="24%">
+</p>
+
+<p align="center">
+  The first three images are from <code>datasets_tmp</code>, while the last image is from <code>results_tmp</code>.
+</p>
+
 ## 🗺️ Open-Source Plan
 
 - [x] 🔓 Release **AssemLM-V1 weights**, **inference code**, and a **demo dataset**.
@@ -88,3 +104,21 @@ bash scripts/query_assemlm.sh
 - [ ] 🧠 Release the **training code**.
 - [ ] ⚙️ Release the **data processing pipeline**.
 - [ ] 🚀 Release **updated and improved model weights**.
+
+## 🔖 Citation
+
+If you find our work helpful, please cite:
+
+```bibtex
+@article{jing2026assemlm,
+  title={AssemLM: Spatial Reasoning Multimodal Large Language Models for Robotic Assembly},
+  author={Jing, Zhi and Qiao, Jinbin and Lu, Ouyang and Ao, Jicong and Qiu, Shuang and Jiang, Yu-Gang and Bai, Chenjia},
+  journal={arXiv preprint arXiv:2604.08983},
+  year={2026}
+}
+```
+
+## Acknowledgements
+
+- Our implementation is based on the open-source codebases from [StarVLA](https://github.com/starVLA/starVLA), [TwoByTwo](https://github.com/TEA-Lab/TwoByTWo), [RoboRefer](https://github.com/zhoues/RoboRefer).
+- We also sincerely acknowledge the datasets and assets provided by [PartNet](https://github.com/daerduoCarey/partnet_dataset), [BiAssembly](https://github.com/sxy7147/BiAssembly), [TwoByTwo](https://github.com/TEA-Lab/TwoByTWo), [PartNeXt](https://github.com/AuthorityWang/PartNeXt), [IKEA-Manual](https://cs.stanford.edu/~rcwang/projects/ikea_manual/).
