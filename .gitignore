@@ -9,4 +9,4 @@ __pyacache__/
 *.pyc
 *_tmp_*/
 *tmp */
-models/
+/models/
