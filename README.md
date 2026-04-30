@@ -21,12 +21,34 @@
 
 </div>
 
+![](assets/main.png)
+
 ## 🚀 News
+
 - **[2026-04-29]** 🔓 Open-source the inference code, AssemLM-V1 weights, and demo dataset for inference.
 - **[2026-04-16]** 🗺️ Announce the open-source plan.
 - **[2026-04-10]** 📄 Upload the paper to arXiv: [paper](https://arxiv.org/abs/2604.08983)
 - **[2026-03-15]** 🎉 Release the first version of the [project page](https://assemlmhome.github.io/).
 - **[2026-03-05]** 🏗️ Create the [project page](https://assemlmhome.github.io/) and [code repository](https://github.com/TeleHuman/AssemLM).
+
+## ⚙️ Setup Environment
+
+### Installation Steps
+
+#### 1. **Clone the repository**
+
+```sh
+git clone https://github.com/TeleHuman/AssemLM.git
+cd AssemLM
+```
+
+#### 2. **Create & Build conda env**
+
+```sh
+conda create -n assemlm python=3.10.14 -y
+conda activate assemlm
+bash setting.sh
+```
 
 ## 🗺️ Open-Source Plan
 
