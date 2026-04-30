@@ -35,19 +35,49 @@
 
 ### Installation Steps
 
-#### 1. **Clone the repository**
+#### 1. Clone the repository
 
 ```sh
 git clone https://github.com/TeleHuman/AssemLM.git
 cd AssemLM
 ```
 
-#### 2. **Create & Build conda env**
+#### 2. Create & Build conda env
 
 ```sh
 conda create -n assemlm python=3.10.14 -y
 conda activate assemlm
 bash setting.sh
+```
+
+#### 3. Prepare the model
+
+```sh
+mkdir models && cd models
+huggingface-cli download TeleEmbodied/AssemLM-V1 --local-dir ./AssemLM-V1
+```
+
+#### 3. Prepare the dataset
+
+```sh
+mkdir datasets && cd datasets
+huggingface-cli download --repo-type dataset --resume-download TeleEmbodied/AssemLM  --local-dir .
+cd ..
+```
+
+## 🚀 **Getting Started**
+
+1. Run the API server for AssemLM.
+
+```sh
+bash scripts/run_api.sh
+```
+
+2. Open another terminal and run the query code:
+
+```sh
+conda activate assemlm
+bash scripts/query_assemlm.sh
 ```
 
 ## 🗺️ Open-Source Plan
