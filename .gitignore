@@ -10,3 +10,5 @@ __pyacache__/
 *_tmp_*/
 *tmp */
 /models/
+!/datasets/.gitkeep
+!/models/.gitkeep
