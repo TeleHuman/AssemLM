@@ -13,7 +13,8 @@
 <p align="center">
   <a href="https://arxiv.org/pdf/2604.08983"><img src="https://img.shields.io/badge/Paper-PDF-red" alt="Paper"></a>
   <a href="https://arxiv.org/abs/2604.08983"><img src="https://img.shields.io/badge/arXiv-2604.08983-b31b1b" alt="arXiv"></a>
-  <a href=""><img src="https://img.shields.io/badge/Model-Coming%20Soon-blue" alt="Model"></a>
+  <a href="https://huggingface.co/TeleEmbodied/AssemLM-V1/tree/main"><img src="https://img.shields.io/badge/Model-HuggingFace-yellow" alt="Model"></a>
+  <a href="https://huggingface.co/datasets/TeleEmbodied/AssemLM/tree/main"><img src="https://img.shields.io/badge/Datasets-HuggingFace-yellow" alt="Datasets"></a>
   <a href="https://assemlmhome.github.io/"><img src="https://img.shields.io/badge/Project%20Page-Home-green" alt="Project Page"></a>
   <a href="https://github.com/TeleHuman/AssemLM"><img src="https://img.shields.io/badge/Code-GitHub-black" alt="Code"></a>
 </p>
@@ -21,18 +22,17 @@
 </div>
 
 ## 🚀 News
-
-- **[2026-04-16]** 🗺️ Announce the open-source roadmap, including plans for releasing inference weights, code, datasets, and future improved versions.
-
+- **[2026-04-29]** 🔓 Open-source the inference code, AssemLM-V1 weights, and demo dataset for inference.
+- **[2026-04-16]** 🗺️ Announce the open-source plan.
 - **[2026-04-10]** 📄 Upload the paper to arXiv: [paper](https://arxiv.org/abs/2604.08983)
 - **[2026-03-15]** 🎉 Release the first version of the [project page](https://assemlmhome.github.io/).
 - **[2026-03-05]** 🏗️ Create the [project page](https://assemlmhome.github.io/) and [code repository](https://github.com/TeleHuman/AssemLM).
 
-## 🗺️ Open-Source Roadmap
+## 🗺️ Open-Source Plan
 
-- **[Coming within 1 week]** 🔓 Release **AssemLM-v1 inference weights**, **inference code**, and a **sample dataset**.
-- **[Planned]** 📦 Release the **majority of the AssemBench dataset**.
-- **[Planned]** 📚 Release **additional datasets and benchmark resources**.
-- **[Planned]** 🧠 Release the **training code**.
-- **[Planned]** ⚙️ Release the **data processing pipeline**.
-- **[Planned]** 🚀 Release **updated and improved model weights**.
+- [x] 🔓 Release **AssemLM-V1 weights**, **inference code**, and a **demo dataset**.
+- [ ] 📦 Release the **majority of the AssemBench dataset**.
+- [ ] 📚 Release **additional datasets and benchmark resources**.
+- [ ] 🧠 Release the **training code**.
+- [ ] ⚙️ Release the **data processing pipeline**.
+- [ ] 🚀 Release **updated and improved model weights**.
