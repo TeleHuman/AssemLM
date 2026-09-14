@@ -1,0 +1,1 @@
+from .models.encoder.vn_dgcnn import VN_DGCNN_New as PointEncoder

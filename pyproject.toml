@@ -7,10 +7,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "assemlm"
-version = "1.0.0"
+version = "2.0.0"
 description = "Spatial reasoning multimodal large language models for robotic assembly."
 readme = "README.md"
-requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10,<3.13"
 dependencies = [
     "torch==2.5.1",
     "torchvision==0.20.1",
@@ -18,14 +20,32 @@ dependencies = [
     "omegaconf==2.3.0",
     "rich==13.9.4",
     "tqdm==4.67.3",
-    "numpy==2.2.6",
+    "numpy==1.26.4",
     "pillow==12.1.1",
     "transformers==4.57.0",
-    "accelerate==1.3.0",
+    "accelerate==1.5.2",
+    "deepspeed==0.16.9",
+    "ninja",
     "trimesh==4.10.0",
     "h5py==3.15.1",
     "matplotlib==3.10.8",
+    "qwen-vl-utils",
+    "wandb",
 ]
 
-[tool.setuptools]
-packages = ["assemlm"]
+[project.scripts]
+assemlm-gui = "scripts.AssemLM_GUI:main"
+assemlm-eval = "assemlm.eval.eval_assemlm_v2:evaluate"
+assemlm-aggregate-eval = "assemlm.eval.aggregate_eval_results:main"
+assemlm-aggregate-seeds = "assemlm.eval.aggregate_seed_results:main"
+
+[tool.setuptools.packages.find]
+include = ["assemlm*", "scripts*", "main*", "config*"]
+
+# The Chamfer extension is compiled lazily after installation.  Keep its
+# native sources in wheels as well as source distributions so a wheel install
+# remains sufficient for the documented ``setup.py build_ext --inplace``
+# step.
+[tool.setuptools.package-data]
+"assemlm.model.modules.point_encoder.vn_dgcnn.models.ChamferDistancePytorch.chamfer3D" = ["*.cu", "*.cpp"]
+"config" = ["*.yaml", "*.json"]

@@ -1,14 +1,36 @@
 local*/
 *.egg-info/
+build/
+dist/
 ckpts/
 tmp/
 *local/
 datasets/
 *tmp/
-__pyacache__/
+__pycache__/
 *.pyc
 *_tmp_*/
 *tmp */
-/models/
-!/datasets/.gitkeep
-!/models/.gitkeep
+models/
+!datasets/.gitkeep
+!models/.gitkeep
+logs/
+generated_samples/
+results/
+eval_results/
+eval_results_4gpu/
+eval_results_smoke/
+
+# 内部文档（不随仓库发布）
+docs/
+
+# 备份文件（*.bak / *.bak.<时间戳>）
+*.bak.*
+*.bak
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+/tests/

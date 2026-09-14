@@ -10,7 +10,7 @@ def load_chamfer():
     global chamfer_3D
     if chamfer_3D is not None:
         return chamfer_3D
-    
+
     import importlib
     import os
     from torch.utils.cpp_extension import load
@@ -20,14 +20,31 @@ def load_chamfer():
     chamfer_found = importlib.util.find_spec("chamfer_3D") is not None
     if not chamfer_found:
         cur_path = os.path.dirname(os.path.abspath(__file__))
+        source_files = [
+            os.path.join(cur_path, "chamfer_cuda.cpp"),
+            os.path.join(cur_path, "chamfer3D.cu"),
+        ]
+        missing = [path for path in source_files if not os.path.isfile(path)]
+        if missing:
+            raise RuntimeError(
+                "Chamfer CUDA sources are missing from the installation: "
+                + ", ".join(missing)
+                + ". Reinstall the AssemLM package with native package data."
+            )
         build_path = cur_path.replace('chamfer3D', 'tmp')
         os.makedirs(build_path, exist_ok=True)
 
-        chamfer_3D = load(name="chamfer_3D",
-              sources=[
-                  "/".join(os.path.abspath(__file__).split('/')[:-1] + ["chamfer_cuda.cpp"]),
-                  "/".join(os.path.abspath(__file__).split('/')[:-1] + ["chamfer3D.cu"]),
-                  ], build_directory=build_path)
+        try:
+            chamfer_3D = load(
+                name="chamfer_3D",
+                sources=source_files,
+                build_directory=build_path,
+            )
+        except Exception as exc:
+            raise RuntimeError(
+                "Unable to build the Chamfer CUDA extension. Ensure nvcc, the "
+                "selected PyTorch CUDA toolchain, and ninja are installed."
+            ) from exc
     else:
         import chamfer_3D
     return chamfer_3D
@@ -37,13 +54,24 @@ def load_chamfer():
 class chamfer_3DFunction(Function):
     @staticmethod
     def forward(ctx, xyz1, xyz2):
+        if xyz1.ndim != 3 or xyz2.ndim != 3 or xyz1.size(-1) != 3 or xyz2.size(-1) != 3:
+            raise ValueError(
+                "Chamfer distance expects [B, N, 3] and [B, M, 3] tensors, "
+                f"got {tuple(xyz1.shape)} and {tuple(xyz2.shape)}."
+            )
+        if not xyz1.is_cuda or not xyz2.is_cuda:
+            raise RuntimeError("AssemLM Chamfer distance requires CUDA tensors.")
+        if xyz1.device != xyz2.device:
+            raise ValueError(
+                f"Chamfer inputs must share a device, got {xyz1.device} and {xyz2.device}."
+            )
+        if xyz1.dtype != xyz2.dtype:
+            raise ValueError(
+                f"Chamfer inputs must share a dtype, got {xyz1.dtype} and {xyz2.dtype}."
+            )
         _chamfer_3D = load_chamfer()
         batchsize, n, dim = xyz1.size()
-        assert dim==3, "Wrong last dimension for the chamfer distance 's input! Check with .size()"
         _, m, dim = xyz2.size()
-        assert dim==3, "Wrong last dimension for the chamfer distance 's input! Check with .size()"
-        device = xyz1.device
-
         device = xyz1.device
 
         dist1 = torch.zeros(batchsize, n)

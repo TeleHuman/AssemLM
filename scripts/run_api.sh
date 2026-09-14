@@ -4,8 +4,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 API_ENTRY="$PROJECT_ROOT/API/AssemLM.py"
+PYTHON_BIN="${ASSEMLM_PYTHON:-python}"
 
 cd "$PROJECT_ROOT"
-exec python "$API_ENTRY" \
+exec "$PYTHON_BIN" "$API_ENTRY" \
     --model-path "$PROJECT_ROOT/models/AssemLM-V1" \
     "$@"

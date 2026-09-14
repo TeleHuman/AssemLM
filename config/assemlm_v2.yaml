@@ -1,0 +1,137 @@
+# AssemLM 2.0 training configuration.
+# The launch script supplies local model and dataset paths through environment variables.
+
+run_id: assemlm_v2
+run_root_dir: ./results
+seed: 42
+wandb_project: assemlm-v2
+wandb_entity: null
+wandb_group: train
+
+datasets:
+  assemble_data:
+    dataset_py: hdf5datasets
+    eval_with_val: true
+    num_samples: 50
+    point_token_len: 256
+    label_pad_token_id: -100
+    per_device_batch_size: 3
+    num_workers: 4
+    # ``+``-separated dataset names, or ``auto`` to use every assemlm_*.hdf5
+    # file below ASSEMLM_DATA_ROOT. The released recipe trains on the four
+    # collection datasets (IKEA is evaluation-only) and evaluates on Two by Two.
+    train_mix: biasassembly+partnet+partnext+twobytwo
+    test_mix: twobytwo
+    data_features: src_pc,tgt_pc,imgs,lang,asset,category,pre_pose
+    seed: 42
+    shuffle: true
+    drop_last: true
+    import_rotation: true
+    centering_mode: mean
+  point_token_len: 256
+
+framework:
+  name: AssemLM2
+  framework_py: AssemLM2
+  pvlm_py: pvlm
+  vlm:
+    base_vlm: ${oc.env:ASSEMLM_VLM_PATH}
+    attn_implementation: eager
+  point_encoder:
+    type: vn_dgcnn_patch
+    vn_dgcnn_patch:
+      pc_feat_dim: 512
+      fusion_module: patch_transformer
+      pooling: mean
+      norm_type: rmsnorm
+      num_patches: 128
+      patch_size: 4
+      patch_method: fps_knn
+      normalize_frame: true
+      force_fp32: true
+      bridge:
+        enabled: true
+        hidden_dim: 1024
+        num_layers: 4
+        num_heads: 8
+        ffn_dim: 4096
+        dropout: 0.1
+        pos_embed_type: fourier
+        fourier_bands: 6
+        fourier_max_freq: 10.0
+        deepstack_enabled: true
+        deepstack_num_layers: 3
+        deepstack_layer_indexes: auto
+        deepstack_init_scale: 0.1
+        feature_layout: four_branch_equiv_invariant
+        position_normalize: joint_isotropic
+        scale_encoding_enabled: true
+        scale_injection: film
+        scale_feature_mode: part_radii_center_distance_joint_radius
+        scale_reference: 1.0
+        scale_log_clip: 10.0
+        attention_isolation: protect_invariant
+  point_projector:
+    projection_hidden_layer: 2
+    backbone_output_dim: 6
+    projection_hidden_dim: [1024, 2048]
+    project_output_dim: 2048
+  point_mrope:
+    enabled: true
+    grid_size: 64
+    normalize: joint_isotropic
+    base_mode: first_point
+    reflow_text_positions: true
+  point_attention:
+    bidirectional_enabled: true
+    bidirectional_scope: all_points
+    feature_isolation: protect_invariant
+  pose_regression:
+    enabled: true
+    query_mode: pose_query_token
+    query_token: <pose_query>
+    hidden_dim: 4096
+    num_blocks: 2
+    output_dim: 9
+    trans_loss_weight: 1.0
+    rot_loss_weight: 1.0
+    rot_loss_unit: radian
+  use_category_in_instruction: true
+
+trainer:
+  max_train_steps: 10000000
+  num_warmup_steps: 50000
+  save_interval: 5000
+  save_start_step: 0
+  save_end_step: 500000
+  eval_interval: 1000
+  eval_start_step: 0
+  eval_end_step: 10000000
+  learning_rate:
+    base: 1.0e-5
+    pvlm_interface: 5.0e-6
+  lr_scheduler_type: cosine_with_min_lr
+  scheduler_specific_kwargs:
+    min_lr: 5.0e-7
+  freeze_modules: ""
+  max_grad_norm: 1.0
+  warmup_ratio: 0.1
+  weight_decay: 0.0
+  logging_frequency: 10
+  gradient_clipping: 1.0
+  gradient_accumulation_steps: 1
+  optimizer:
+    name: AdamW
+    betas: [0.9, 0.95]
+    eps: 1.0e-8
+    weight_decay: 1.0e-8
+  enable_gradient_checkpointing: true
+  enable_mixed_precision_training: true
+  vlm_max_length: 1800
+  vlm_padding: true
+  eval_seed: 42
+  reproducible_training: true
+  deterministic_training: true
+  pa_thresholds: 0.01,0.008,0.005
+  epoch_eval_enabled: true
+  epoch_checkpoint_enabled: true

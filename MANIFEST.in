@@ -1,0 +1,9 @@
+include README.md
+include setting.sh
+include LICENSE
+recursive-include scripts *.py *.sh
+recursive-include main *.py
+recursive-include assemlm *.py *.cu *.cpp
+recursive-include config *.yaml *.json
+recursive-include assets *
+recursive-include docs *

@@ -5,12 +5,12 @@ import numpy as np
 from flask import Flask, request, jsonify
 import argparse
 from omegaconf import OmegaConf
-from assemlm.model.framework import build_framework
+from assemlm.legacy.v1.model.framework import build_framework
 from pathlib import Path
-from assemlm.model.modules.point_encoder.vn_dgcnn.utils import bgs
-from assemlm.utils.visualize_utils import save_multi_part_pointcloud_png
+from assemlm.legacy.v1.model.modules.point_encoder.vn_dgcnn.utils import bgs
+from assemlm.legacy.v1.utils.visualize_utils import save_multi_part_pointcloud_png
 import torch
-from assemlm.model.framework.AssemLMHF import AssemLMHF
+from assemlm.legacy.v1.model.framework.AssemLMHF import AssemLMHF
 from PIL import Image
 
 app = Flask(__name__)
@@ -52,6 +52,8 @@ def query():
 
     records = payload.get("records", []) if isinstance(payload, dict) else []
     asset_count = len(records)
+    from assemlm.utils.point_clouds import resample_point_cloud_pair
+
     batch_count = asset_count // 4
     usable_asset_count = batch_count * 4
 
@@ -83,6 +85,7 @@ def query():
             with open(instruction_path, "r", encoding="utf-8") as f:
                 instruction = f.read().strip()
             
+            part_a, base_part_b = resample_point_cloud_pair(part_a, base_part_b)  # uniform point count for stacking
             batch_point_clouds.append(np.stack([part_a.T, base_part_b.T], axis=0)) # 4 * (2, 3, 1024)
             batch_fixed_point_clouds.append(base_part_b.T)
             batch_moving_point_clouds.append(part_a.T)

@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# This is required to enable PEP 660 (editable install) support
-python -m pip install --upgrade pip setuptools wheel
+# Install the release in the currently selected Python environment.  The old
+# script hard-coded a CUDA/Python/Torch-specific FlashAttention wheel, which
+# could silently fail on a different machine.  FlashAttention is optional:
+# the release uses eager attention by default and can be enabled explicitly.
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+PYTHON_BIN=${ASSEMLM_PYTHON:-python}
 
-python -m pip install -e .
+"${PYTHON_BIN}" -m pip install --upgrade pip setuptools wheel
+"${PYTHON_BIN}" -m pip install -e "${SCRIPT_DIR}"
 
-# Install FlashAttention2
-pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.8/flash_attn-2.5.8+cu122torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+if [[ "${INSTALL_FLASH_ATTENTION:-false}" == "true" ]]; then
+    "${PYTHON_BIN}" -m pip install flash-attn --no-build-isolation
+fi

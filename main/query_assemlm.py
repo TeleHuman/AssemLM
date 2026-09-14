@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import Any, Dict, List
 from urllib import error, request
-from assemlm.utils.visualize_utils import save_multi_part_pointcloud_png
+from assemlm.legacy.v1.utils.visualize_utils import save_multi_part_pointcloud_png
 import h5py
 import numpy as np
 from PIL import Image
