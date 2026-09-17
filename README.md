@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/assemlm2-animation.webp" alt="AssemLM 2.0 assembly animation" width="100%">
+</p>
+
 # 🏗️ **AssemLM: A Spatial Reasoning Multimodal Large Language Model for Robotic Assembly**
 
 <div align="center">
@@ -20,8 +24,6 @@
 </p>
 
 </div>
-
-![](assets/main.png)
 
 ## 🚀 News
 
