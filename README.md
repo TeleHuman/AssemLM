@@ -156,6 +156,42 @@ export ASSEMLM_DATA_ROOT=$PWD/datasets/AssemLM2
 
 ## 🖥️ GUI Usage
 
+**Sample construction**
+
+<table>
+  <tr>
+    <td width="33%" align="center" valign="top">
+      <a href="assets/gui1.png"><img src="assets/gui1.png" alt="AssemLM GUI: dataset loading and category distribution" width="100%"></a>
+      <br><sub>1. Dataset overview</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <a href="assets/gui2.png"><img src="assets/gui2.png" alt="AssemLM GUI: sample selection and reference images" width="100%"></a>
+      <br><sub>2. Sample selection</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <a href="assets/gui3.png"><img src="assets/gui3.png" alt="AssemLM GUI: point cloud inspection and moving part randomization" width="100%"></a>
+      <br><sub>3. Point cloud preview</sub>
+    </td>
+  </tr>
+</table>
+
+**Model inference**
+
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="assets/gui4.png"><img src="assets/gui4.png" alt="AssemLM GUI: model loading and inference controls" width="100%"></a>
+      <br><sub>4. Run model inference</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="assets/gui5.png"><img src="assets/gui5.png" alt="AssemLM GUI: predicted assembly, evaluation metrics, and predicted pose" width="100%"></a>
+      <br><sub>5. Assembly and metrics</sub>
+    </td>
+  </tr>
+</table>
+
+Click any screenshot to view it at full resolution.
+
 The GUI builds randomized single-sample folders from an HDF5 file and runs
 cached model inference on them:
 
